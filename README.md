@@ -1,27 +1,42 @@
-# STM32 Bare-Metal LED Blink
+# STM32 Bare-Metal LED Controller
 
-Blinking external LEDs on PC8 and PC9 using direct register manipulation on the STM32F303RE Nucleo board. No HAL or Cube drivers used.
+This project blinks two external LEDs connected to PC8 and PC9 using register-level programming on an STM32F303RE Nucleo board. All GPIO configuration and delay logic is implemented manually, without using STM32 HAL or Cube libraries.
 
 ## 🔧 Hardware
 
 - STM32F303RE Nucleo board  
-- Breadboard, 2x LEDs (red + white), 2x 220Ω resistors  
-- PC8 and PC9 wired to LEDs via resistors to GND
+- Breadboard  
+- 2x LEDs (e.g., red + white)  
+- 2x 220Ω resistors  
+- Jumper wires
 
-## ⚙️ Code Overview
+### Circuit:
+- PC8 → Resistor → LED Anode → Cathode → GND  
+- PC9 → Resistor → LED Anode → Cathode → GND  
 
-- SysTick configured for 1ms ticks  
-- `MODER`, `OTYPER`, `PUPDR`, and `BSRR` used to toggle PC8/PC9
-- Custom `Delay()` using `TimingDelay` + `SysTick_Handler`
+## ⚙️ Implementation Details
 
-## 📷 Photos
+- GPIO pins PC8 and PC9 configured as output via CMSIS macros:
+  - `GPIO_MODER_MODER8_0`, `GPIO_MODER_MODER9_0`
+- Output type set to push-pull, no pull-up/down resistors, low speed
+- Used SysTick timer to generate 1ms interrupts
+- `Delay()` function built around a `volatile` counter decremented in `SysTick_Handler`
+- LED toggle logic handled with:
+  - `GPIOC->BSRR` to set pin HIGH  
+  - `GPIOC->BRR` to set pin LOW
 
-> Include your breadboard pictures, pin wiring, and blinking LED video here
-
-## 💻 main.c Highlight
+## 🖥️ Example `main.c` Snippet
 
 ```c
-GPIOC->MODER |= (1 << (8 * 2));   // Set PC8 to output
-GPIOC->BSRR |= GPIO_BSRR_BS_8;    // Set PC8 high
+GPIOC->MODER &= ~(GPIO_MODER_MODER8 | GPIO_MODER_MODER9);
+GPIOC->MODER |=  GPIO_MODER_MODER8_0 | GPIO_MODER_MODER9_0;
+
+GPIOC->OTYPER &= ~(GPIO_OTYPER_OT_8 | GPIO_OTYPER_OT_9);
+GPIOC->OSPEEDR &= ~(GPIO_OSPEEDER_OSPEEDR8 | GPIO_OSPEEDER_OSPEEDR9);
+GPIOC->PUPDR &= ~(GPIO_PUPDR_PUPDR8 | GPIO_PUPDR_PUPDR9);
+
+// In loop
+GPIOC->BSRR |= (GPIO_BSRR_BS_8 | GPIO_BSRR_BS_9);
 Delay(1000);
-GPIOC->BRR |= GPIO_BRR_BR_8;      // Set PC8 low
+GPIOC->BRR  |= (GPIO_BRR_BR_8 | GPIO_BRR_BR_9);
+Delay(1000);
