@@ -6,7 +6,7 @@ This project blinks two external LEDs connected to PC8 and PC9 using register-le
 
 - STM32F303RE Nucleo board  
 - Breadboard  
-- 2x LEDs (e.g., red + white)  
+- 2x LEDs
 - 2x 220Ω resistors  
 - Jumper wires
 
