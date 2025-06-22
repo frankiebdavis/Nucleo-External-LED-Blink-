@@ -6,13 +6,17 @@ This project blinks two external LEDs connected to PC8 and PC9 using register-le
 
 - STM32F303RE Nucleo board  
 - Breadboard  
-- 2x LEDs
+- 2x LEDs  
 - 2x 220Ω resistors  
 - Jumper wires
 
 ### Circuit:
 - PC8 → Resistor → LED Anode → Cathode → GND  
 - PC9 → Resistor → LED Anode → Cathode → GND  
+
+<p align="center">
+  <img src="LED_blink_image.jpeg" alt="LED Blink Setup" width="450"/>
+</p>
 
 ## ⚙️ Implementation Details
 
@@ -24,6 +28,10 @@ This project blinks two external LEDs connected to PC8 and PC9 using register-le
 - LED toggle logic handled with:
   - `GPIOC->BSRR` to set pin HIGH  
   - `GPIOC->BRR` to set pin LOW
+
+### 💡 LED Blinking Demo
+
+[![Watch the demo](https://img.youtube.com/vi/cPPfdc07ZzA/0.jpg)](https://youtube.com/shorts/cPPfdc07ZzA?feature=share)
 
 ## 🖥️ Example `main.c` Snippet
 
@@ -40,3 +48,4 @@ GPIOC->BSRR |= (GPIO_BSRR_BS_8 | GPIO_BSRR_BS_9);
 Delay(1000);
 GPIOC->BRR  |= (GPIO_BRR_BR_8 | GPIO_BRR_BR_9);
 Delay(1000);
+
