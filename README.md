@@ -1,4 +1,4 @@
-# STM32 Bare-Metal LED Controller
+# STM32 Nucleo LED Controller
 
 This project blinks two external LEDs connected to PC8 and PC9 using register-level programming on an STM32F303RE Nucleo board. All GPIO configuration and delay logic is implemented manually, without using STM32 HAL or Cube libraries.
 
