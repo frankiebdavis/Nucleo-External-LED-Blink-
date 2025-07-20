@@ -1,4 +1,4 @@
-# 🧠 STM32 Nucleo LED Controller – Bare-Metal GPIO
+# 🧠 STM32 Nucleo LED Controller
 
 This project demonstrates how to manually control GPIO pins on an **STM32F303RE Nucleo board** using **register-level programming**, without relying on the STM32 HAL or CubeMX libraries.
 
