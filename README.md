@@ -82,8 +82,7 @@ while (1) {
     GPIOC->BRR  |= (GPIO_BRR_BR_8 | GPIO_BRR_BR_9);   // Turn LEDs OFF
     Delay(1000);
 }
-
----
+```
 
 ## 💡 Blinking Demo Video
 
