@@ -1,4 +1,4 @@
-# 🧠 STM32 Nucleo LED Controller
+# STM32 Nucleo LED Controller
 
 This project demonstrates how to manually control GPIO pins on an **STM32F303RE Nucleo board** using **register-level programming**, without relying on the STM32 HAL or CubeMX libraries.
 
@@ -6,14 +6,14 @@ By writing directly to CMSIS-defined registers, you gain full control over GPIO 
 
 ---
 
-## ❓ Problem
+## Problem
 
 How can two external LEDs be toggled with precise timing **without using high-level libraries**?  
 The challenge: directly configure GPIO registers and build a custom timing system using the SysTick peripheral.
 
 ---
 
-## 🔨 Method
+## Method
 
 - **Direct Register Access (CMSIS):** Configure PC8 and PC9 as push-pull outputs, with no pull-ups/pull-downs, low speed.  
 - **SysTick Timer:** Configure to tick every 1 ms, decrementing a global counter.  
@@ -22,7 +22,7 @@ The challenge: directly configure GPIO registers and build a custom timing syste
 
 ---
 
-## ✅ Result
+## Result
 
 - Two LEDs connected to PC8 and PC9 blink **once per second**.  
 - Entirely achieved through **bare-metal register programming** and a SysTick-based delay.  
@@ -30,7 +30,7 @@ The challenge: directly configure GPIO registers and build a custom timing syste
 
 ---
 
-## 🔧 Hardware Used
+## Hardware Used
 
 - **STM32F303RE** Nucleo Board  
 - Breadboard  
@@ -38,7 +38,7 @@ The challenge: directly configure GPIO registers and build a custom timing syste
 - 2× 220 Ω resistors  
 - Jumper wires  
 
-### 🔌 Circuit Wiring
+### Circuit Wiring
 
 | MCU Pin | Connection                     |
 |---------|--------------------------------|
@@ -47,7 +47,7 @@ The challenge: directly configure GPIO registers and build a custom timing syste
 
 ---
 
-## 💻 Demo Code
+## Demo Code
 
 ```c
 // ================= GPIO Configuration =================
@@ -84,7 +84,7 @@ while (1) {
 }
 ```
 
-## 💡 Blinking Demo Video
+## Blinking Demo Video
 
 [![Watch the demo](https://img.youtube.com/vi/cPPfdc07ZzA/hqdefault.jpg)](https://www.youtube.com/watch?v=cPPfdc07ZzA)
 
